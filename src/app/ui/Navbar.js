@@ -1,8 +1,10 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const Navbar = () => {
+    const router = useRouter()
     return (
         <nav
             className={`sticky top-0 flex flex-row mt-20 items-center bg-white text-xl text-black rounded-full w-400 mx-auto`}>
@@ -31,8 +33,8 @@ const Navbar = () => {
 
             {/* Login/Signup Buttons (Right) */}
             <div className="ml-auto pr-4">
-                <button className="rounded-lg text-lg mr-1 p-4 bg-gray-200">Log in</button>
-                <button className="rounded-4xl ml-1 p-4 bg-black text-white">Sign up free</button>
+                <button onClick={() => { router.push("/login") }} className="rounded-lg text-lg mr-1 p-4 bg-gray-200 cursor-pointer">Log in</button>
+                <button onClick={() => { router.push("/signup") }} className="rounded-4xl ml-1 p-4 bg-black text-white cursor-pointer">Sign up free</button>
             </div>
         </nav>
     )
