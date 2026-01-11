@@ -12,7 +12,7 @@ export async function POST(request) {
         const { username, password } = reqBody;
 
         // check if user exists
-        const user = await User.findOne({ username })
+        const user = await User.findOne({ username })        
 
         if (!user) {
             return NextResponse.json({ error: "User does not exist" }, { status: 400 })
@@ -37,7 +37,8 @@ export async function POST(request) {
 
         const response = NextResponse.json({
             message: "Login Successful",
-            success: true
+            success: true,
+            username: user.username
         })
         response.cookies.set("token", token, { httpOnly: true })
 
