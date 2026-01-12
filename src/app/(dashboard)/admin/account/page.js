@@ -16,6 +16,7 @@ export default function AccountPage() {
             try {
                 const response = await axios.get('/api/me')
                 setData(response.data.data)
+                
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -25,7 +26,7 @@ export default function AccountPage() {
 
     const username = data?.username || "Loading...";
 
-    const handleLogout = async () => {
+    const handleDelete = async () => {
         try {
             const response = await axios.delete('/api/users/delete', { data: data })
             toast.success(response.message)
@@ -36,6 +37,20 @@ export default function AccountPage() {
             toast.error(error.message)
         }
     }
+
+    const handleLogout = async () => {
+        try {
+            const response = await axios.get('/api/users/logout')
+            toast.success(response.message)
+            router.push('/login')
+
+        } catch (error) {
+            console.error("Error:", error)
+            toast.error(error.message)
+        }
+    }
+
+
 
     return (
         <div className="w-full max-w-4xl mx-auto px-6 py-8 font-sans">
@@ -68,9 +83,8 @@ export default function AccountPage() {
 
                     {/* Upgrade Section */}
                     <div className="p-6">
-                        <p className="text-sm text-gray-900 font-medium mb-4 text-center">Upgrade to Pro to invite multiple admins to manage this Linktree</p>
-                        <button className="w-full bg-[#8129D9] hover:bg-[#6821ad] text-white font-bold py-3 rounded-full flex items-center justify-center gap-2 transition-colors">
-                            <span className="text-lg">⚡</span> Upgrade to Pro
+                        <button onClick={handleLogout} className="w-full bg-[#8129D9] hover:bg-[#6821ad] text-white font-bold py-3 rounded-full flex items-center justify-center gap-2 transition-colors">
+                            Log out
                         </button>
                     </div>
                 </div>
@@ -80,7 +94,7 @@ export default function AccountPage() {
                 <h2 className="text-md font-semibold text-gray-900 mb-2">Manage account deletion</h2>
                 <div className="bg-white rounded-[24px] shadow-sm border border-gray-200 p-6">
                     <p className="text-sm text-gray-600 mb-6">Permanently delete your entire account and all profiles you own.</p>
-                    <button onClick={handleLogout} className="w-full bg-[#D10000] hover:bg-[#b50000] text-white font-bold py-3 rounded-full transition-colors">
+                    <button onClick={handleDelete} className="w-full bg-[#D10000] hover:bg-[#b50000] text-white font-bold py-3 rounded-full transition-colors">
                         Delete Account
                     </button>
                 </div>

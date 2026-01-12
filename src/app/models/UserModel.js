@@ -14,8 +14,12 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Password is required"]
-    }
+    },
+    links: [{
+        title: { type: String, default: '' },
+        url: { type: String, default: '' }
+    }]
 })
 
-const User = mongoose.models.user || mongoose.model("user", userSchema)
+const User = mongoose.models.User || mongoose.model("User", userSchema)
 export default User

@@ -5,11 +5,11 @@ import bcryptjs from "bcryptjs"
 
 await connect()
 
-export async function POST(request, response) {
-    
+export async function POST(request) {
+
     try {
         const reqBody = await request.json()
-        const { username, email, password } = reqBody
+        const { username, email, password, links } = reqBody
 
         // check if user already exists
         const user = await User.findOne({ email })
@@ -23,7 +23,8 @@ export async function POST(request, response) {
         const newUser = new User({
             username,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            links: links
         })
 
         const savedUser = await newUser.save()

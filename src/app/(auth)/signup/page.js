@@ -12,7 +12,8 @@ export default function SignupPage() {
     const [user, setUser] = useState({
         email: "",
         password: "",
-        username: ""
+        username: "",
+        links: [{ title: '', url: '' }]
     })
 
     const [buttonDisabled, setButtonDisabled] = useState(true)

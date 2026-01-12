@@ -25,7 +25,7 @@ export default function AdminPage() {
     const router = useRouter();
 
     const [data, setData] = useState('');
-    const [linkData, setLinkData] = useState([{ id: 1, title: 'Title', url: 'Url' }]);
+    const [linkData, setLinkData] = useState([]);
     const [draggedItemIndex, setDraggedItemIndex] = useState(null);
 
     useEffect(() => {
@@ -33,6 +33,13 @@ export default function AdminPage() {
             try {
                 const response = await axios.get('/api/me')
                 setData(response.data.data)
+
+                // Ensure every link has an id property for React keys
+                const mappedLinks = (response.data.data.links || []).map(link => ({
+                    ...link,
+                    id: link._id || link.id
+                }));
+                setLinkData(mappedLinks)
                 console.log(response.data.data);
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -40,6 +47,18 @@ export default function AdminPage() {
         }
         getUserDetails();
     }, [])
+
+    const submitLinks = async () => {
+        try {
+            const response = await axios.post('/api/add', linkData);
+            console.log(response.data.message);
+            
+            toast.success(response.data.message);
+        } catch (error) {
+            console.error(error.message);
+            toast.error(error.message);
+        }
+    }
 
     const handleAddLink = () => {
         setLinkData((prev) => [...prev, { id: Date.now(), title: 'Title', url: 'Url' }]);
@@ -56,11 +75,10 @@ export default function AdminPage() {
     const onDragStart = (e, index) => {
         setDraggedItemIndex(index);
         e.dataTransfer.effectAllowed = "move";
-        // Ghost image customization could go here
     }
 
     const onDragOver = (e) => {
-        e.preventDefault(); // Necessary to allow dropping
+        e.preventDefault();
     }
 
     const onDrop = (e, dropIndex) => {
@@ -112,7 +130,7 @@ export default function AdminPage() {
                 </div>
 
                 {/* Main Action Buttons */}
-                <button onClick={handleAddLink} className="w-full bg-[#8129D9] hover:bg-[#6821ad] text-white font-bold py-3.5 rounded-[30px] flex items-center justify-center gap-2 transition-transform transform active:scale-[0.99] mb-6 shadow-md hover:shadow-lg">
+                <button onClick={handleAddLink} className="w-full cursor-pointer bg-[#8129D9] hover:bg-[#6821ad] text-white font-bold py-3.5 rounded-[30px] flex items-center justify-center gap-2 transition-transform transform active:scale-[0.99] mb-6 shadow-md hover:shadow-lg">
                     <GoPlus size={24} />
                     <span className="text-[16px]">Add</span>
                 </button>
@@ -146,12 +164,21 @@ export default function AdminPage() {
                         />
                     ))}
                 </div>
+                {/* save button */}
+                <div className="mt-8 sticky bottom-6 z-20">
+                    <button 
+                        onClick={submitLinks}
+                        className="w-full cursor-pointer bg-[#8129D9] hover:bg-[#6821ad] text-white font-bold py-3.5 rounded-[30px] shadow-lg hover:shadow-xl transition-all transform active:scale-[0.99]"
+                    >
+                        Save
+                    </button>
+                </div>
             </div>
 
             {/* Right Preview Sidebar */}
             <div className="w-[420px] border-l border-gray-200 bg-white hidden xl:flex flex-col items-center p-8 sticky top-0 h-screen">
                 <div className="w-full bg-white border border-gray-200 rounded-lg py-3 px-4 flex justify-between items-center mb-10 text-sm shadow-sm hover:bg-gray-50 transition-colors cursor-pointer group hover:shadow-md">
-                    <span className="text-gray-700 truncate group-hover:underline decoration-1 underline-offset-2">linktr.ee/{data.username}</span>
+                    <span className="text-gray-700 truncate group-hover:underline decoration-1 underline-offset-2">{process.env.NEXT_PUBLIC_HOST}/{data.username}</span>
                     <FiShare className="text-gray-500" />
                 </div>
 
@@ -177,9 +204,9 @@ export default function AdminPage() {
                         <h3 className="font-bold text-lg mb-6 drop-shadow-md">@{data.username}</h3>
 
                         <div className="w-full space-y-3 z-10">
-                             {linkData && linkData.map((item) => (
+                            {linkData && linkData.map((item) => (
                                 <MockPhoneButton key={item.id}>{item.title}</MockPhoneButton>
-                             ))}
+                            ))}
                         </div>
 
                         <div className="mt-auto text-[10px] text-white/50 pb-4 font-semibold uppercase tracking-widest">Linktree</div>
@@ -192,7 +219,7 @@ export default function AdminPage() {
 
 function LinkItem({ id, index, title, url, clicks, active, icon, warning, onUpdate, onDelete, onDragStart, onDragOver, onDrop }) {
     return (
-        <div 
+        <div
             draggable
             onDragStart={(e) => onDragStart(e, index)}
             onDragOver={onDragOver}
@@ -207,20 +234,20 @@ function LinkItem({ id, index, title, url, clicks, active, icon, warning, onUpda
                     <div className="flex justify-between items-start">
                         <div className="flex flex-col gap-1 w-full">
                             <div className="flex items-center gap-2 group/edit">
-                                <input 
-                                    type="text" 
-                                    value={title} 
+                                <input
+                                    type="text"
+                                    value={title}
                                     onChange={(e) => onUpdate(id, 'title', e.target.value)}
-                                    className="font-bold text-gray-900 text-[15px] focus:outline-none focus:border-b border-gray-300 bg-transparent w-full max-w-[200px]" 
+                                    className="font-bold text-gray-900 text-[15px] focus:outline-none focus:border-b border-gray-300 bg-transparent w-full max-w-[200px]"
                                 />
                                 <HiOutlinePencil size={14} className="text-gray-300 group-hover/edit:text-gray-500 cursor-pointer" />
                             </div>
                             <div className="flex items-center gap-2 group/edit">
-                                <input 
-                                    type="text" 
+                                <input
+                                    type="text"
                                     value={url}
                                     onChange={(e) => onUpdate(id, 'url', e.target.value)}
-                                    className="text-gray-500 text-sm focus:outline-none focus:border-b border-gray-300 bg-transparent w-full max-w-[200px]" 
+                                    className="text-gray-500 text-sm focus:outline-none focus:border-b border-gray-300 bg-transparent w-full max-w-[200px]"
                                 />
                                 <HiOutlinePencil size={14} className="text-gray-300 group-hover/edit:text-gray-500 cursor-pointer" />
                             </div>
