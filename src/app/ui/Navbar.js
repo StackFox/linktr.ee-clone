@@ -2,12 +2,43 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 const Navbar = () => {
     const router = useRouter()
+    const [isVisible, setIsVisible] = useState(true)
+    const [lastScrollY, setLastScrollY] = useState(0)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY
+
+            // Show navbar when scrolling up, hide when scrolling down
+            // Add a threshold to prevent immediate hiding on small scrolls
+            if (currentScrollY < lastScrollY - 5) {
+                // Scrolling up
+                setIsVisible(true)
+            } else if (currentScrollY > lastScrollY + 5 && currentScrollY > 100) {
+                // Scrolling down past 100px with threshold
+                setIsVisible(false)
+            }
+
+            setLastScrollY(currentScrollY)
+        }
+
+        window.addEventListener('scroll', handleScroll, { passive: true })
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [lastScrollY])
+
     return (
         <nav
-            className={`sticky top-0 flex flex-row mt-20 items-center bg-white text-xl text-black rounded-full w-400 mx-auto`}>
+            style={{ marginTop: '3rem' }}
+            className={`fixed top-0 left-0 right-0 flex flex-row items-center bg-white text-xl text-black rounded-full w-400 mx-auto transition-all duration-500 ease-in-out z-50 ${
+                isVisible ? 'translate-y-0' : '-translate-y-[200%]'
+            }`}>
             {/* Logo and Links (Left) */}
             <div className="flex items-center gap-8">
                 <div className="p-8 items-center justify-center">

@@ -52,7 +52,7 @@ export default function AdminPage() {
         try {
             const response = await axios.post('/api/add', linkData);
             console.log(response.data.message);
-            
+
             toast.success(response.data.message);
         } catch (error) {
             console.error(error.message);
@@ -166,7 +166,7 @@ export default function AdminPage() {
                 </div>
                 {/* save button */}
                 <div className="mt-8 sticky bottom-6 z-20">
-                    <button 
+                    <button
                         onClick={submitLinks}
                         className="w-full cursor-pointer bg-[#8129D9] hover:bg-[#6821ad] text-white font-bold py-3.5 rounded-[30px] shadow-lg hover:shadow-xl transition-all transform active:scale-[0.99]"
                     >
@@ -178,7 +178,7 @@ export default function AdminPage() {
             {/* Right Preview Sidebar */}
             <div className="w-[420px] border-l border-gray-200 bg-white hidden xl:flex flex-col items-center p-8 sticky top-0 h-screen">
                 <div className="w-full bg-white border border-gray-200 rounded-lg py-3 px-4 flex justify-between items-center mb-10 text-sm shadow-sm hover:bg-gray-50 transition-colors cursor-pointer group hover:shadow-md">
-                    <span className="text-gray-700 truncate group-hover:underline decoration-1 underline-offset-2">{process.env.NEXT_PUBLIC_HOST}/{data.username}</span>
+                    <a target="_blank" href={`${process.env.NEXT_PUBLIC_HOST}/${data.username}`} className="text-gray-700 truncate group-hover:underline decoration-1 underline-offset-2">{process.env.NEXT_PUBLIC_HOST}/{data.username}</a>
                     <FiShare className="text-gray-500" />
                 </div>
 

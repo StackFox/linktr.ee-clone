@@ -22,6 +22,7 @@ export default function AuthLayout({ children }) {
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#d2e823]`}
+        suppressHydrationWarning
       >
         <Toaster position="bottom-right" />
         {children}

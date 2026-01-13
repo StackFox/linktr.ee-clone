@@ -17,7 +17,7 @@ export default async function LinkPage({ params }) {
                 <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-3xl font-bold">
                     {user.username[0].toUpperCase()}
                 </div>
-                <h1 className="font-bold text-xl">@{user.username}</h1>
+                <h1 className="font-bold text-xl text-white">@{user.username}</h1>
 
                 <div className="w-full space-y-4 mt-6">
                     {user.links && user.links.map((link) => (

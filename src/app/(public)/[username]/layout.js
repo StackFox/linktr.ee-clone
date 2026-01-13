@@ -23,7 +23,7 @@ export default function LinkTreeLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f3f3f1] text-gray-900 flex h-screen overflow-hidden`}
       >
-        <main className="flex-1 overflow-y-auto h-full relative">
+        <main className="flex-1 overflow-y-auto h-full relative bg-linear-to-bl from-violet-500 to-fuchsia-500">
           <Toaster position="bottom-right" />
           {children}
         </main>
