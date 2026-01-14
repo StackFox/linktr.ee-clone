@@ -19,15 +19,13 @@ export const metadata = {
 
 export default function LinkTreeLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f3f3f1] text-gray-900 flex h-screen overflow-hidden`}
-      >
-        <main className="flex-1 overflow-y-auto h-full relative bg-linear-to-bl from-violet-500 to-fuchsia-500">
-          <Toaster position="bottom-right" />
-          {children}
-        </main>
-      </body>
-    </html>
+    <div
+      className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f3f3f1] text-gray-900 flex h-screen overflow-hidden`}
+    >
+      <main className="flex-1 overflow-y-auto h-full relative bg-linear-to-bl from-violet-500 to-fuchsia-500">
+        <Toaster position="bottom-right" />
+        {children}
+      </main>
+    </div>
   );
 }

@@ -19,14 +19,11 @@ export const metadata = {
 
 export default function AuthLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#d2e823]`}
-        suppressHydrationWarning
-      >
-        <Toaster position="bottom-right" />
-        {children}
-      </body>
-    </html>
+    <div
+      className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#d2e823]`}
+    >
+      <Toaster position="bottom-right" />
+      {children}
+    </div>
   );
 }
