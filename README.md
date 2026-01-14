@@ -13,7 +13,7 @@ A modern **Linktree clone** built with Next.js that allows users to create their
 
 ## 🚀 Live Demo
 
-**[View Live Demo](https://linktr-ee-clone-git-main-stackfoxs-projects.vercel.app)**
+**[View Live Demo](https://linktr-ee-clone-ten.vercel.app/)**
 
 ---
 
