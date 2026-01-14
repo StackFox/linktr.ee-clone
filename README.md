@@ -1,36 +1,247 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🔗 Linktree Clone
 
-## Getting Started
+A modern **Linktree clone** built with Next.js that allows users to create their own customizable link-in-bio pages. This project replicates core Linktree functionality with a beautiful, premium UI and essential features for managing and sharing multiple links through a single URL.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📸 Preview
+
+<!-- Add preview image here -->
+![Linktree Clone Preview](./public/preview.png)
+
+---
+
+## 🚀 Live Demo
+
+**[View Live Demo](#)** *(Link will be added after deployment)*
+
+---
+
+## ✨ Features That Work
+
+### ✅ Core Functionality
+- **🔐 User Authentication**
+  - Complete signup/login system with JWT authentication
+  - Secure password hashing with bcryptjs
+  - Protected routes and session management
+  - Password reset functionality
+
+- **🎨 Beautiful Landing Page**
+  - Premium, Linktree-inspired design
+  - Responsive hero section with animations
+  - Multiple feature sections highlighting customization, sharing, and analytics
+  - FAQ section with interactive elements
+  - Trust indicators and call-to-action sections
+  - Fully responsive footer with app store badges
+
+- **⚙️ Admin Dashboard**
+  - Clean, intuitive interface for managing links
+  - Add, edit, and delete link collections
+  - Live preview of profile (phone mockup)
+  - Profile information display (username, bio, avatar)
+  - Toggle link visibility (active/inactive)
+  - Icon selection for different link types (Instagram, WhatsApp, TikTok, YouTube, etc.)
+  - Modern sidebar navigation
+
+- **👤 Public User Profiles**
+  - Dynamic route-based user pages (`/[username]`)
+  - Display user's active links and profile information
+  - Clean, mobile-friendly interface
+  - Share profile via unique username URL
+
+- **📱 Responsive Design**
+  - Mobile-first approach
+  - Works seamlessly across all device sizes
+  - Tailwind CSS for modern, utility-first styling
+
+---
+
+## ⚠️ Known Flaws & Missing Features
+
+### 🚧 Incomplete Functionality
+- **Analytics Dashboard**
+  - Click tracking is not fully implemented
+  - No real-time analytics display
+  - User engagement metrics are missing
+
+- **Drag & Drop Reordering**
+  - UI elements are present but functionality is buggy
+  - Links don't properly reorder after drag-and-drop
+  - Need to implement proper state management for reordering
+
+- **QR Code Generation**
+  - Feature mentioned in UI but not implemented
+  - No QR code generation for profile URLs
+
+- **Advanced Profile Customization**
+  - Limited theme options (no color picker)
+  - No background image upload
+  - No custom fonts or advanced styling options
+
+- **Social Media Integration**
+  - No actual social media API connections
+  - Icons are decorative only
+
+- **Image Upload**
+  - No profile picture upload functionality
+  - Using placeholders instead
+
+### 🐛 Known Bugs
+- Form validation could be more robust
+- Some edge cases in authentication flow
+- Mobile navigation could be smoother
+- Database connection errors not always handled gracefully
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js 16.1.1](https://nextjs.org/) (App Router)
+- **Frontend:** React 19.2.3
+- **Styling:** Tailwind CSS 4
+- **Database:** MongoDB (via Mongoose)
+- **Authentication:** JWT (jsonwebtoken) + bcryptjs
+- **HTTP Client:** Axios
+- **Notifications:** react-hot-toast
+- **Icons:** react-icons
+- **Node Version:** 18+ recommended
+
+---
+
+## 📦 Installation & Setup
+
+### Prerequisites
+- Node.js 18 or higher
+- MongoDB database (local or cloud)
+- npm, yarn, pnpm, or bun package manager
+
+### Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd linktree-clone
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
+
+3. **Set up environment variables**
+   
+   Create a `.env.local` file in the root directory:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_secret_key_here
+   NEXT_PUBLIC_HOST=http://localhost:3000
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
+
+5. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🗂️ Project Structure
+
+```
+linktree-clone/
+├── src/
+│   ├── app/
+│   │   ├── (auth)/          # Authentication pages
+│   │   │   ├── login/
+│   │   │   ├── signup/
+│   │   │   └── forgot/
+│   │   ├── (dashboard)/     # Protected admin area
+│   │   │   ├── admin/       # Main dashboard
+│   │   │   └── AdminSidebar.js
+│   │   ├── (main)/          # Landing page
+│   │   ├── (public)/        # Public user profiles
+│   │   │   └── [username]/
+│   │   ├── api/             # API routes
+│   │   │   └── users/
+│   │   ├── models/          # MongoDB models
+│   │   └── helpers/         # Utility functions
+│   └── lib/                 # Database connection
+├── public/                  # Static assets
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🎯 Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Create an Account**
+   - Navigate to `/signup`
+   - Enter your details and create an account
 
-## Learn More
+2. **Set Up Your Profile**
+   - Go to the admin dashboard
+   - Add your bio and profile information
+   - Add links with titles and URLs
+   - Toggle link visibility
 
-To learn more about Next.js, take a look at the following resources:
+3. **Share Your Profile**
+   - Your profile is accessible at `/[your-username]`
+   - Share this link on your social media
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Future Improvements
 
-## Deploy on Vercel
+- [ ] Implement full analytics dashboard
+- [ ] Fix drag-and-drop reordering
+- [ ] Add QR code generation
+- [ ] Implement profile picture upload
+- [ ] Add theme customization (colors, fonts)
+- [ ] Email verification
+- [ ] Social media OAuth login
+- [ ] Premium features (scheduling, custom domains)
+- [ ] Better error handling and validation
+- [ ] Link click tracking
+- [ ] SEO optimization for public profiles
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page if you want to contribute.
+
+---
+
+## 📄 License
+
+This project is open source and available for educational purposes.
+
+---
+
+## 🙏 Acknowledgments
+
+- Inspired by [Linktree](https://linktr.ee/)
+- Built as a learning project to understand Next.js App Router, MongoDB, and modern web development practices
+
+---
+
+## 📞 Contact
+
+Feel free to reach out if you have any questions or suggestions!
+
+---
+
+**Note:** This is a learning project and not affiliated with Linktree in any way.
